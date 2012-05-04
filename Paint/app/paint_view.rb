@@ -26,11 +26,7 @@ class PaintView < UIView
   def touchesBegan(touches, withEvent:event)
     bp = UIBezierPath.alloc.init
     bp.lineWidth = 3.0
-    random_color = begin
-      red, green, blue = rand(100)/100.0, rand(100)/100.0, rand(100)/100.0
-      UIColor.alloc.initWithRed(red/100.0, green:green, blue:blue, alpha:1.0)
-    end
-    @paths << [bp, random_color]
+    @paths << [bp, randomColor]
   end
 
   def touchesMoved(touches, withEvent:event)
@@ -53,5 +49,12 @@ class PaintView < UIView
     @paths.clear
     @eraseSound.play
     setNeedsDisplay
+  end
+
+  private
+
+  def randomColor
+    red, green, blue = 3.times.map { rand(101) / 100.0 }
+    UIColor.alloc.initWithRed(red, green:green, blue:blue, alpha:1.0)
   end
 end
